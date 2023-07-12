@@ -50,7 +50,6 @@ public class RegisterServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		// out.print("Registration Succesfull");
 		String query = "INSERT INTO user_tb VALUES ('" + un + "','" + pass + "');";
-		out.print(query);
 		try {
 			statement.execute(query);
 			out.println("Query Executed...");

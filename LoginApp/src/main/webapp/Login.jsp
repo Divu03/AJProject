@@ -3,13 +3,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+<% 	
+	String errormsg = request.getParameter("error");
+	if(errormsg == "true"){
+		out.println(errormsg);
+	}
+	else{
+		out.println("Welcome ");
+	}
+%>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 <h1>Login</h1>
-<form>
+<form action="Authenticate" method="get">
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
     <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
