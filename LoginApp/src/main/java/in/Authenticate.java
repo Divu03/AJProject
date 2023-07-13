@@ -48,7 +48,6 @@ public class Authenticate extends HttpServlet {
 		out.print("hello");
 		try {
 			String query = "SELECT * FROM user_tb WHERE username = '"+un+"' AND password = '"+pass+"';";
-			out.print(query);
 			ResultSet resultSet = statement.executeQuery(query);
 			if(resultSet.next()) {
 				response.sendRedirect("Home.jsp");
