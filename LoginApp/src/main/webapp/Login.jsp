@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    %>
 <!DOCTYPE html>
 <html>
 <head>
 <% 	
-	String errormsg = request.getParameter("error");
-	if(errormsg == "true"){
-		out.println(errormsg);
+	Boolean errormsg = Boolean.parseBoolean(request.getParameter("error"));
+	if(errormsg == true){
+		out.println("error");
 	}
 	else{
-		out.println("Welcome ");
+		out.println("welcome");
 	}
 %>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">

@@ -47,14 +47,14 @@ public class Authenticate extends HttpServlet {
 		// out.print("Registration Succesfull");
 		out.print("hello");
 		try {
-			String query = "SELECT * FROM student_tb WHERE username = '"+un+"' AND password = '"+pass+"';";
+			String query = "SELECT * FROM user_tb WHERE username = '"+un+"' AND password = '"+pass+"';";
 			out.print(query);
 			ResultSet resultSet = statement.executeQuery(query);
 			if(resultSet.next()) {
-				response.sendRedirect("home.jsp");
+				response.sendRedirect("Home.jsp");
 			}
 			else {
-				response.sendRedirect("login.jsp?error=true");
+				response.sendRedirect("Login.jsp?error=true");
 			}
 		}
 		catch (SQLException e) {
