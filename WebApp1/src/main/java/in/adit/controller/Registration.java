@@ -47,8 +47,8 @@ public class Registration extends HttpServlet {
 		String email = request.getParameter("password");
 		int mobile = Integer.parseInt(request.getParameter("number"));
 
-		//response.setContentType("text/html");
-		//PrintWriter out = response.getWriter();		
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();		
 		try {
 			String query = "INSERT INTO user_info_tbl VALUES (?,?,?,?,?);";
 			statement.setString(1, un);
