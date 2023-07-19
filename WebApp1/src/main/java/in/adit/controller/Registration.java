@@ -51,6 +51,7 @@ public class Registration extends HttpServlet {
 		PrintWriter out = response.getWriter();		
 		try {
 			String query = "INSERT INTO user_info_tbl VALUES (?,?,?,?,?);";
+			statement = connection.prepareStatement(query);
 			statement.setString(1, un);
 			statement.setString(2, firstName);
 			statement.setString(3, lastName);
@@ -59,10 +60,12 @@ public class Registration extends HttpServlet {
 			statement.execute(query);
 			System.out.println("Query 1 Executed...");
 			String query2 = "INSERT INTO login_tbl VALUES (?,?);";
+			statement = connection.prepareStatement(query2);
 			statement.setString(1,un);
 			statement.setString(2,pass);
 			statement.execute(query2);
 			System.out.println("Query 2 Executed...");
+			response.sendRedirect("login.jsp");
 		} catch (SQLException e) {
 			out.println(e);
 			e.printStackTrace();

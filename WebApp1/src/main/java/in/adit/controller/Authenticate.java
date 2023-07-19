@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import in.adit.model.Employee;
+import in.adit.model.DAO.EmplyeeDAOImpl;
+
 @WebServlet("/authenticate")
 public class Authenticate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -41,33 +44,28 @@ public class Authenticate extends HttpServlet {
     }
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		RequestDispatcher rd;
+		
 		String un = request.getParameter("username");
 		String pass = request.getParameter("password");
-		RequestDispatcher rd;
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.print("hello");
-
-		try {
-			String query = "SELECT * FROM login_tbl WHERE username = ? AND password = ?;";
-			statement.setString(1, un);
-			statement.setString(2, pass);
-			
-			ResultSet resultSet = statement.executeQuery(query);
-			if(resultSet.next()) {
-				response.sendRedirect("home.jsp");
-			}
-			else {
-				request.setAttribute("error", "invalid");
-				rd = request.getRequestDispatcher("login.jsp");
-				rd.forward(request, response);
-			}
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
 		
+		Employee employee = new Employee();
+		employee.setUsername(un);
+		employee.setPassword(pass);
+		
+		EmplyeeDAOImpl daoImpl = new EmplyeeDAOImpl();
+		
+		if(daoImpl.authenticate(employee)) {
+			out.println("Login sucessfull");
+		}
+		else {
+			request.setAttribute("error", "invalid");
+			rd = request.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
+		}	
 	}
-
 }

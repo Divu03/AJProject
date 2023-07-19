@@ -7,6 +7,7 @@
 			<div class="card-header bg-danger">Create Account</div>
 			<div class="card-body">
 
+				<form action="Regitration" method="post">
 				<table class="table table-borderless">
 					<tr>
 						<td><input type="text" class="form-control" name="username"
@@ -37,9 +38,10 @@
 							value="Create Account" /></td>
 					</tr>
 				</table>
+				</form>
 			</div>
 		</div>
 	</div>
 	<div class="col-md-4"></div>
 </div>
-<%@include file="components/footer.jsp" %>ss
+<%@include file="components/footer.jsp" %>0

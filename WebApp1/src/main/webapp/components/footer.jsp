@@ -1,5 +1,4 @@
 <footer>
-	<h1 id="footerh1">This is footer</h1>
+	<p class="footertxt">Design and Developed By : ADIT</p>
 </footer>
-</body>
 </html>
