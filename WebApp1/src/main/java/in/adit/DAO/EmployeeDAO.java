@@ -1,6 +1,8 @@
-package in.adit;
+package in.adit.DAO;
 
 import java.util.List;
+
+import in.adit.Employee;
 
 public interface EmployeeDAO {
 	
