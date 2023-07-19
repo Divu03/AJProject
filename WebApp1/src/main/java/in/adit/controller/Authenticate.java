@@ -1,4 +1,4 @@
-package in.adit.authenticate;
+package in.adit.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
