@@ -45,7 +45,8 @@ public class Registration extends HttpServlet {
 		String firstName = request.getParameter("password");
 		String lastName = request.getParameter("password");
 		String email = request.getParameter("password");
-		int mobile = Integer.parseInt(request.getParameter("number"));
+		String m = request.getParameter("mobile");
+		Long mobile = Long.parseLong(m);
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();		
@@ -56,7 +57,7 @@ public class Registration extends HttpServlet {
 			statement.setString(2, firstName);
 			statement.setString(3, lastName);
 			statement.setString(4, email);
-			statement.setInt(5, mobile);
+			statement.setLong(5, mobile);
 			statement.execute(query);
 			System.out.println("Query 1 Executed...");
 			String query2 = "INSERT INTO login_tbl VALUES (?,?);";
