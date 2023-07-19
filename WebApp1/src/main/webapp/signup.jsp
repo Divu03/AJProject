@@ -25,6 +25,14 @@
 							placeholder="Enter Lastname" /></td>
 					</tr>
 					<tr>
+						<td><input type="email" class="form-control" name="email"
+							placeholder="Enter Email" /></td>
+					</tr>
+					<tr>
+						<td><input type="number" class="form-control" name="mobile"
+							placeholder="Enter Mobile Number" /></td>
+					</tr>
+					<tr>
 						<td><input type="submit" class="btn btn-danger"
 							value="Create Account" /></td>
 					</tr>
