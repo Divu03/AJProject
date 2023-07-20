@@ -7,7 +7,7 @@
 			<div class="card-header bg-danger">Create Account</div>
 			<div class="card-body">
 
-				<form action="Regitration" method="post">
+				<form action="Registration" method="get">
 				<table class="table table-borderless">
 					<tr>
 						<td><input type="text" class="form-control" name="username"
@@ -30,8 +30,8 @@
 							placeholder="Enter Email" /></td>
 					</tr>
 					<tr>
-						<td><input type="number" class="form-control" name="mobile"
-							placeholder="Enter Mobile Number" /></td>
+						<td><input type="tel" class="form-control" name="mobile"
+							placeholder="Mobile Number 10 digit" pattern="[0-9]{10}" /></td>
 					</tr>
 					<tr>
 						<td><input type="submit" class="btn btn-danger"

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/Regitration")
+@WebServlet("/Registration")
 public class Registration extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -21,8 +21,8 @@ public class Registration extends HttpServlet {
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "";
 
-	Connection connection = null;
-	PreparedStatement statement = null;
+	public Connection connection;
+	public PreparedStatement statement;
 
 	public Registration() {
 		super();
@@ -31,6 +31,7 @@ public class Registration extends HttpServlet {
 			connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			System.out.println("Connect established succesfully");
 		} catch (SQLException e) {
+			System.out.println(e);
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -51,8 +52,15 @@ public class Registration extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();		
 		try {
-			String query = "INSERT INTO user_info_tbl VALUES (?,?,?,?,?);";
-			statement = connection.prepareStatement(query);
+			String query2 = "INSERT INTO login_tbl VALUES (?,?)";
+			//statement = connection.prepareStatement(query2);
+			statement.setString(1,un);
+			statement.setString(2,pass);
+			statement.execute(query2);
+			System.out.println("Query 2 Executed...");
+			
+			String query = "INSERT INTO user_info_tbl VALUES (?,?,?,?,?)";
+			//statement = connection.prepareStatement(query);
 			statement.setString(1, un);
 			statement.setString(2, firstName);
 			statement.setString(3, lastName);
@@ -60,12 +68,7 @@ public class Registration extends HttpServlet {
 			statement.setLong(5, mobile);
 			statement.execute(query);
 			System.out.println("Query 1 Executed...");
-			String query2 = "INSERT INTO login_tbl VALUES (?,?);";
-			statement = connection.prepareStatement(query2);
-			statement.setString(1,un);
-			statement.setString(2,pass);
-			statement.execute(query2);
-			System.out.println("Query 2 Executed...");
+			
 			response.sendRedirect("login.jsp");
 		} catch (SQLException e) {
 			out.println(e);
