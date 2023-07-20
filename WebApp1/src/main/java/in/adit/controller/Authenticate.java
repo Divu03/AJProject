@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.adit.model.Employee;
-import in.adit.model.DAO.EmplyeeDAOImpl;
+import in.adit.model.DAO.EmployeeDAOImpl;
 
 @WebServlet("/authenticate")
 public class Authenticate extends HttpServlet {
@@ -56,15 +56,16 @@ public class Authenticate extends HttpServlet {
 		employee.setUsername(un);
 		employee.setPassword(pass);
 		
-		EmplyeeDAOImpl daoImpl = new EmplyeeDAOImpl();
+		EmployeeDAOImpl daoImpl = new EmployeeDAOImpl();
 		
 		if(daoImpl.authenticate(employee)) {
-			out.println("Login sucessfull");
+			request.setAttribute("user", employee.getUsername());
+			rd = request.getRequestDispatcher("home.jsp");
 		}
 		else {
 			request.setAttribute("error", "invalid");
 			rd = request.getRequestDispatcher("login.jsp");
-			rd.forward(request, response);
 		}	
+		rd.forward(request, response);
 	}
 }

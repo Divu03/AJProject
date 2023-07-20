@@ -7,18 +7,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.catalina.tribes.membership.cloud.CloudMembershipProvider;
+
 import in.adit.model.Employee;
 
-public class EmplyeeDAOImpl implements EmployeeDAO{
+public class EmployeeDAOImpl implements EmployeeDAO{
 	
 	Connection connection;
 	PreparedStatement pstm;
+	PreparedStatement statement;
+	PreparedStatement statement2;
 	ResultSet rs;
+	String URL = "jdbc:mysql://localhost:3306/user";
+	String id = "root";
+	String password = "";
 	
-	public EmplyeeDAOImpl() {
+	public EmployeeDAOImpl() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/employee_db", "root", "");
+			connection = DriverManager.getConnection(URL,id,password);
 			System.out.println("Connection Successful");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -34,7 +41,7 @@ public class EmplyeeDAOImpl implements EmployeeDAO{
 	public boolean authenticate(Employee employee) {
 		try {
 			String query = "SELECT * FROM login_tbl WHERE username = ? AND password = ?;";
-			
+			pstm = connection.prepareStatement(query);
 			pstm.setString(1, employee.getUsername());
 			pstm.setString(2, employee.getPassword());
 			
@@ -52,7 +59,28 @@ public class EmplyeeDAOImpl implements EmployeeDAO{
 
 	@Override
 	public boolean createEmployee(Employee employee) {
-		// TODO Auto-generated method stub
+		try {
+			String query2 = "INSERT INTO login_tbl VALUES (?,?)";
+			statement2 = connection.prepareStatement(query2);
+			statement2.setString(1,employee.getUsername());
+			statement2.setString(2,employee.getPassword());
+			statement2.execute();
+			System.out.println("Query 2 Executed...");
+			
+			String query = "INSERT INTO user_info_tbl VALUES (?,?,?,?,?)";
+			statement = connection.prepareStatement(query);
+			statement.setString(1, employee.getUsername());
+			statement.setString(2, employee.getFirstname());
+			statement.setString(3, employee.getLastname());
+			statement.setString(4, employee.getEmail());
+			statement.setLong(5, employee.getNumber());
+			statement.execute();
+			System.out.println("Query 1 Executed...");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return false;
 	}
 

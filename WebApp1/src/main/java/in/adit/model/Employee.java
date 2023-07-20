@@ -7,7 +7,7 @@ public class Employee {
 	private String firstname;
 	private String lastname;
 	private String email;
-	private int number;
+	private Long number;
 
 	public String getUsername() {
 		return username;
@@ -53,7 +53,7 @@ public class Employee {
 		return number;
 	}
 
-	public void setnumber(int number) {
+	public void setnumber(Long number) {
 		this.number = number;
 	}
 

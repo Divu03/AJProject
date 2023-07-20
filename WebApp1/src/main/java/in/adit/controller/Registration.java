@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import in.adit.model.Employee;
+import in.adit.model.DAO.EmployeeDAO;
+import in.adit.model.DAO.EmployeeDAOImpl;
+
 @WebServlet("/Registration")
 public class Registration extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -23,6 +27,7 @@ public class Registration extends HttpServlet {
 
 	public Connection connection;
 	public PreparedStatement statement;
+	public PreparedStatement statement2;
 
 	public Registration() {
 		super();
@@ -48,32 +53,23 @@ public class Registration extends HttpServlet {
 		String email = request.getParameter("password");
 		String m = request.getParameter("mobile");
 		Long mobile = Long.parseLong(m);
-
+		
+		Employee emp = new Employee();
+		emp.setUsername(un);
+		emp.setPassword(pass);
+		emp.setEmail(email);
+		emp.setFirstname(firstName);
+		emp.setLastname(lastName);
+		emp.setnumber(mobile);
+		
+		EmployeeDAOImpl empl = new EmployeeDAOImpl();
+		
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();		
-		try {
-			String query2 = "INSERT INTO login_tbl VALUES (?,?)";
-			//statement = connection.prepareStatement(query2);
-			statement.setString(1,un);
-			statement.setString(2,pass);
-			statement.execute(query2);
-			System.out.println("Query 2 Executed...");
-			
-			String query = "INSERT INTO user_info_tbl VALUES (?,?,?,?,?)";
-			//statement = connection.prepareStatement(query);
-			statement.setString(1, un);
-			statement.setString(2, firstName);
-			statement.setString(3, lastName);
-			statement.setString(4, email);
-			statement.setLong(5, mobile);
-			statement.execute(query);
-			System.out.println("Query 1 Executed...");
-			
+		PrintWriter out = response.getWriter();	
+		
+		if(empl.createEmployee(emp)) {
 			response.sendRedirect("login.jsp");
-		} catch (SQLException e) {
-			out.println(e);
-			e.printStackTrace();
-		}
+		}		
 
 	}
 
