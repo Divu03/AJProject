@@ -3,7 +3,7 @@
 <div class="row">
 	<div class="col-md-4"></div>
 	<div class="col-md-4">
-		<form action="authenticate" method="post">
+		<form action="authenticate" method="get">
 			<div class="card">
 				<div class="card-header bg-danger">Employee Login</div>
 				<div class="card-body">

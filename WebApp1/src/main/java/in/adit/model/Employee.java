@@ -49,7 +49,7 @@ public class Employee {
 		this.email = email;
 	}
 	
-	public int getNumber() {
+	public Long getNumber() {
 		return number;
 	}
 

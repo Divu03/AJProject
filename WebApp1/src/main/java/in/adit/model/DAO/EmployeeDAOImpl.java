@@ -5,9 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
-
-import org.apache.catalina.tribes.membership.cloud.CloudMembershipProvider;
 
 import in.adit.model.Employee;
 
@@ -15,9 +14,11 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	
 	Connection connection;
 	PreparedStatement pstm;
+	Statement ssdt;
 	PreparedStatement statement;
 	PreparedStatement statement2;
-	ResultSet rs;
+	
+	int got;
 	String URL = "jdbc:mysql://localhost:3306/user";
 	String id = "root";
 	String password = "";
@@ -26,6 +27,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection(URL,id,password);
+			ssdt = connection.createStatement();
 			System.out.println("Connection Successful");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -40,21 +42,27 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	@Override
 	public boolean authenticate(Employee employee) {
 		try {
-			String query = "SELECT * FROM login_tbl WHERE username = ? AND password = ?;";
-			pstm = connection.prepareStatement(query);
+			ResultSet rs;
+			String query3 = "SELECT * FROM login_tbl WHERE username = ? AND password = ?";
+			pstm = connection.prepareStatement(query3);
 			pstm.setString(1, employee.getUsername());
 			pstm.setString(2, employee.getPassword());
-			
-			rs = pstm.executeQuery(query);
+			rs = pstm.executeQuery(query3);
 			if(rs.next()) {
-				return true;
+				got = 1;
 			}
-			return false;
 		}
 		catch (SQLException e) {
+			System.out.println(e);
 			e.printStackTrace();
 		}
-		return false;
+		if(got == 1) {
+			System.out.println("returning true ");
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 
 	@Override
@@ -76,6 +84,8 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			statement.setLong(5, employee.getNumber());
 			statement.execute();
 			System.out.println("Query 1 Executed...");
+			
+			return true;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

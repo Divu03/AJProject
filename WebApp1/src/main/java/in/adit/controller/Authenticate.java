@@ -49,12 +49,15 @@ public class Authenticate extends HttpServlet {
 		String un = request.getParameter("username");
 		String pass = request.getParameter("password");
 		
+		System.out.println(un+pass);
+		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
 		Employee employee = new Employee();
 		employee.setUsername(un);
 		employee.setPassword(pass);
+		System.out.println(employee.getUsername()+employee.getPassword());
 		
 		EmployeeDAOImpl daoImpl = new EmployeeDAOImpl();
 		
