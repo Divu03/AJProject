@@ -18,7 +18,6 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	PreparedStatement statement;
 	PreparedStatement statement2;
 	
-	int got;
 	String URL = "jdbc:mysql://localhost:3306/user";
 	String id = "root";
 	String password = "";
@@ -27,13 +26,10 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection(URL,id,password);
-			ssdt = connection.createStatement();
 			System.out.println("Connection Successful");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -43,26 +39,21 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 	public boolean authenticate(Employee employee) {
 		try {
 			ResultSet rs;
-			String query3 = "SELECT * FROM login_tbl WHERE username = ? AND password = ?";
+			String query3 = "SELECT * FROM login_tbl WHERE username = ? AND password = ?;";
 			pstm = connection.prepareStatement(query3);
 			pstm.setString(1, employee.getUsername());
 			pstm.setString(2, employee.getPassword());
-			rs = pstm.executeQuery(query3);
+			rs = pstm.executeQuery();
 			if(rs.next()) {
-				got = 1;
+				return true;
 			}
-		}
-		catch (SQLException e) {
-			System.out.println(e);
-			e.printStackTrace();
-		}
-		if(got == 1) {
-			System.out.println("returning true ");
-			return true;
-		}else {
 			return false;
 		}
-		
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+			return false;
+				
 	}
 
 	@Override
@@ -73,7 +64,6 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			statement2.setString(1,employee.getUsername());
 			statement2.setString(2,employee.getPassword());
 			statement2.execute();
-			System.out.println("Query 2 Executed...");
 			
 			String query = "INSERT INTO user_info_tbl VALUES (?,?,?,?,?)";
 			statement = connection.prepareStatement(query);
@@ -83,7 +73,6 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 			statement.setString(4, employee.getEmail());
 			statement.setLong(5, employee.getNumber());
 			statement.execute();
-			System.out.println("Query 1 Executed...");
 			
 			return true;
 			

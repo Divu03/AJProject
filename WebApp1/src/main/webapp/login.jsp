@@ -8,7 +8,7 @@
 				<div class="card-header bg-danger">Employee Login</div>
 				<div class="card-body">
 				
-					<span class="errormsg">${ERROR}</span>
+					<span class="errormsg">${error}</span>
 					
 					<input type="text" class="form-control" name="username"
 						placeholder="Username"> <br /> <input type="password"

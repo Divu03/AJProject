@@ -21,27 +21,6 @@ import in.adit.model.DAO.EmployeeDAOImpl;
 public class Authenticate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	private static final String URL = "jdbc:mysql://localhost:3306/user";
-	private static final String USERNAME = "root";
-	private static final String PASSWORD = "";
-
-	Connection connection = null;
-	PreparedStatement statement = null;
-	
-    public Authenticate() {
-        super();
-        try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			System.out.println("Connect established succesfully");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
-
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		RequestDispatcher rd;
@@ -49,15 +28,12 @@ public class Authenticate extends HttpServlet {
 		String un = request.getParameter("username");
 		String pass = request.getParameter("password");
 		
-		System.out.println(un+pass);
-		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
 		Employee employee = new Employee();
 		employee.setUsername(un);
 		employee.setPassword(pass);
-		System.out.println(employee.getUsername()+employee.getPassword());
 		
 		EmployeeDAOImpl daoImpl = new EmployeeDAOImpl();
 		
@@ -66,7 +42,7 @@ public class Authenticate extends HttpServlet {
 			rd = request.getRequestDispatcher("home.jsp");
 		}
 		else {
-			request.setAttribute("error", "invalid");
+			request.setAttribute("error", "invalid username or password");
 			rd = request.getRequestDispatcher("login.jsp");
 		}	
 		rd.forward(request, response);

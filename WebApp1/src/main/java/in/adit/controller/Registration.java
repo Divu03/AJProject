@@ -21,31 +21,9 @@ import in.adit.model.DAO.EmployeeDAOImpl;
 public class Registration extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final String URL = "jdbc:mysql://localhost:3306/user";
-	private static final String USERNAME = "root";
-	private static final String PASSWORD = "";
-
-	public Connection connection;
-	public PreparedStatement statement;
-	public PreparedStatement statement2;
-
-	public Registration() {
-		super();
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-			System.out.println("Connect established succesfully");
-		} catch (SQLException e) {
-			System.out.println(e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		String un = request.getParameter("username");
 		String pass = request.getParameter("password");
 		String firstName = request.getParameter("password");
